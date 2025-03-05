@@ -18,17 +18,21 @@ pipeline {
     stage('dockerImageBuild'){
         steps{
             sh 'docker build -t jenkins-cicd .'
+            
         }
     }
     stage('dokerImageTag'){
         steps{
             sh 'docker tag jenkins-cicd:latest\
              051826737816.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd:latest'
+             sh 'docker tag imageversion\
+             051826737816.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd:v1.$BUILD_NUMBER'
         }
     }
     stage('pushImage'){
         steps{
             sh 'docker push 051826737816.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd:latest'
+            sh 'docker push 051826737816.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd:v1.$BUILD_NUMBER'
         }
     }
     }
