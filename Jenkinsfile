@@ -18,7 +18,7 @@ pipeline {
     stage('dockerImageBuild'){
         steps{
             sh 'docker build -t jenkins-cicd .'
-            
+            sh 'docker build -t imageversion . '
         }
     }
     stage('dokerImageTag'){
